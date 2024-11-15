@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Testing</title>
+</head>
+<link rel="icon" href="img/xing.png">
+
+<link rel="stylesheet" href="tools/bootstrap-icons.min.css">
+<link rel="stylesheet" href="tools/bootstrap.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@600&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    font-family: "Noto Sans Lao", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
+
+  .img_one {
+
+    filter: drop-shadow(0 0 3px #032842);
+    width: 85%;
+  }
+
+  .shadow_one {
+    /* background: rgba(255, 255, 255, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18); */
+    margin: 40px;
+  }
+
+  .btn_one {
+    padding: 4px 40px 4px 40px;
+    border: 2px solid #1a5eb0;
+    background-color: #fff;
+    border-radius: 50px;
+    color: #1a5eb0;
+    filter: drop-shadow(0 0 3px #032842);
+  }
+
+  .swal-modal {
+    width: 350px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.swal-title {
+    margin-top: -20px;
+    padding: 0;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.swal-text {
+    margin-top: -15px;
+    padding: 0;
+    font-size: 14px;
+}
+
+.swal-button {
+    margin: 0;
+    margin-top: -20px;
+    padding: 4px 25px 5px 25px;
+    position: relative;
+}
+
+</style>
+
+<body>
+  <div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-2">
+      <div class="shadow_one">
+        <center>
+          <a href="table.html"><img src="img/task.png" class="img_one" alt=""></a>
+          <br>
+          <button class="btn_one" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+              class="bi bi-plus-circle-fill"></i> ເພີ່ມ</button>
+        </center>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header shadow-lg bg-dark p-4">
+          <h1 class="modal-title fs-4 text-white" id="exampleModalLabel"><b>ສີ່ງທີ່ຈະເຮັດ</b></h1>
+          <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form action="" method="post" id="form_post">
+            <div class="form-group">
+              <label for="name"><b>ສີ່ງທີ່ຈະເຮັດ</b></label>
+              <input type="text" class="form-control p-2 name" placeholder="ສີ່ງທີ່ຈະເຮັດ" name="name">
+            </div>
+
+            <div class="form-group">
+              <label for="date"><b>ວັນທີ່</b></label>
+              <input type="datetime-local" class="form-control p-2 date" name="date">
+            </div>
+
+            <div class="form-group">
+              <label for="date"><b>ໝາຍເຫດ</b></label>
+              <textarea name="remark" class="form-control remark" rows="3" placeholder="ໝາຍເຫດ" id=""></textarea>
+            </div>
+
+            <div class="form-group mt-3">
+              <center>
+                <button type="button" class="btn btn-outline-primary ps-4 pe-4 me-3" id="form_submit"><i
+                    class="bi bi-plus-circle-fill"></i> ເພີ່ມ</button>
+                <button class="btn btn-outline-danger ps-3 pe-3 me-3"><i class="bi bi-x-circle-fill"></i>
+                  ຍົກເລີກ</button>
+              </center>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+<script src="tools/bootstrap.bundle.min.js"></script>
+<script src="tools/jquery-3.7.1.js"></script>
+<script src="tools/sweetalert.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#form_submit").click(function () {
+      let name = $(".name").val();
+      let date = $(".date").val();
+      let remark = $(".remark").val();
+
+      if (name == "") {
+        swal({
+          title: '[ ປ້ອນສີ່ງທີຕ້ອງເຮັດ ]',
+          icon: 'warning',
+        });
+      } else if (date == "") {
+        swal({
+          title: '[ ປ້ອນວັນທີ ]',
+          icon: 'warning',
+        });
+      } else {
+        var formData = new FormData($('#form_post')[0]);
+        $.ajax({
+          url: 'https://script.google.com/macros/s/AKfycbzuW4xdx89oxld5ZXMmAM8-1o3jK9zrmgfKyYKwN5b7pT8PiHUiu96B5WDxTPnOdi67MA/exec',
+          data: formData,
+          async: false,
+          contentType: false,
+          processData: false,
+          cache: false,
+          type: 'POST',
+          success: function (data) {
+            swal({
+              title: '[ ເພີ່ມສຳເລັດ ]',
+              icon: 'success',
+              buttons: false,
+            });
+            window.setTimeout(function () {
+              location.reload();
+            }, 1000);
+          },
+        });
+        return false;
+      }
+
+    });
+  });
+</script>
+
+</html>
